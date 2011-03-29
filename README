@@ -1,0 +1,20 @@
+Deduplication in action
+=======================
+
+$ du -sch .git
+216K    .git
+216K    total
+
+$ git checkout many-files
+Switched to branch 'many-files'
+$ du -sch .
+176M    .
+176M    total
+
+You may want to try that checkout in /dev/shm, it's much faster. ;P
+
+Command used to create the files (I didn't actually create them):
+for-loop i=00001,...
+    git update-index --add --cacheinfo 0644 78981922613b2afb6025042ff6bd878ac1994e85 a$i
+
+where 7898192... is the SHA1 of a blob containing just "a" and a newline.
